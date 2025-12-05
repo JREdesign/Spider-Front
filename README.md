@@ -122,7 +122,7 @@ El stack tecnológico y herramientas utilizadas:
 
 
 
-
+(Nota: La carpeta design con los originales del proyecto estan guardadas a parte)
 
 
 
