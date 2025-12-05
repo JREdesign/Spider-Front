@@ -1,0 +1,43 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos para el modo claro */
+body {
+  @apply bg-white text-gray900;
+}
+
+header {
+  @apply bg-gray100;
+}
+
+main {
+  @apply bg-white;
+}
+
+nav {
+  @apply bg-white text-gray900;
+}
+
+
+
+/* Estilos para el modo oscuro */
+.dark body {
+  @apply bg-gray800 text-white;
+}
+
+.dark header {
+  @apply bg-gray800;
+}
+
+.dark main {
+  @apply bg-gray800;
+}
+
+.dark nav {
+  @apply bg-gray800 text-white;
+}
+
+
+

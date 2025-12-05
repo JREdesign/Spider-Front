@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .scrollable {
+            height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="max-w-4xl w-full bg-white shadow-lg p-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">Panel de Administración</h1>
+        <div class="grid grid-cols-2 gap-10">
+            <div>
+                <div class="mb-5">
+                    <h2 class="text-xl font-semibold mb-3">Rastreo</h2>
+                    <div>
+                        <label for="new-tech" class="block mb-2">Añade una nueva tecnología</label>
+                        <div class="flex">
+                            <input type="text" id="new-tech" placeholder="" class="border border-gray-300 p-2 flex-1 mr-2">
+                            <button class="bg-orange-500 text-white px-4 py-2">+</button>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <h3 class="font-semibold mb-2">Rastreando actualmente</h3>
+                        <div class="border border-gray-300 p-3 scrollable">
+                            <div class="flex justify-between items-center mb-4">
+                                <span>ReactJS</span>
+                                <button class="p-1"><img src="botonrojo.svg" alt="Eliminar" class="h-4 w-4"></button>
+                            </div>
+                            <!-- Repetir bloque para cada tecnología rastreada -->
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button class="bg-orange-500 text-white px-6 py-2 mt-5">RASTREAR</button>
+                </div>
+            </div>
+            <div>
+                <div class="mb-5">
+                    <h2 class="text-xl font-semibold mb-3">Usuarios</h2>
+                    <div>
+                        <label for="new-user" class="block mb-2">Añadir usuarios a la plataforma</label>
+                        <div class="flex">
+                            <input type="text" id="new-user" placeholder="" class="border border-gray-300 p-2 flex-1 mr-2">
+                            <button class="bg-orange-500 text-white px-4 py-2">+</button>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <h3 class="font-semibold mb-2">Usuarios registrados</h3>
+                        <div class="border border-gray-300 p-3 scrollable">
+                            <div class="flex justify-between items-center mb-4">
+                                <span>Usuario</span>
+                                <button class="p-1"><img src="botonrojo.svg" alt="Eliminar" class="h-4 w-4"></button>
+                            </div>
+                            <!-- Repetir bloque para cada usuario registrado -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1a5f2348ffe8647e65e0c14788f5ae2bf27ed0cc/dist/aframe-master.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  <script src="./components/PlayVideo.js"></script>
+  <script src="./components/Titulos.js"></script>
+  <script src="./components/1OfertasXLocalizacion.js"></script>
+  <script src="./components/2OfertasXStacks.js"></script>
+  <script src="./components/3OfertasJuniorXLocalizacion.js"></script>
+  <script src="./components/4OfertasInglesXLocalizacion.js"></script>
+  <script src="./components/5OfertasXEmpresas.js"></script>
+  <script src="./components/6TecnologiasFavoritas.js"></script>
+  <script src="./components/socket.io.js"></script>
+  <link rel="stylesheet" href="statsAframe.css">   <script type="module">
+    import { apiUrl } from '../../config.js';
+  
+    window.apiUrl = apiUrl;
+  </script>
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1a5f2348ffe8647e65e0c14788f5ae2bf27ed0cc/dist/aframe-master.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  <script src="./components/PlayVideo.js"></script>
+  <script src="./components/Titulos.js"></script>
+  <script type="module" src="./components/1OfertasXLocalizacion.js"></script>
+  <script type="module" src="./components/2OfertasXStacks.js"></script>
+  <script
+    type="module"
+    src="./components/3OfertasJuniorXLocalizacion.js"
+  ></script>
+  <script
+    type="module"
+    src="./components/4OfertasInglesXLocalizacion.js"
+  ></script>
+  <script type="module" src="./components/5OfertasXEmpresas.js"></script>
+  <script type="module" src="./components/6TecnologiasFavoritas.js"></script>
+  <script src="./components/socket.io.js"></script>
+  <link rel="stylesheet" href="statsAframe.css" />
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      var socket = io();
+      const form = document.querySelector('#form');
+      const input = document.querySelector('#input');
+      const log = document.querySelector('.messages');
+      const usuario = document.querySelector('#usuario');
+      
+      // Recupera el nombre de usuario desde el localStorage
+      const storedUsername = localStorage.getItem('username');
+      if (storedUsername) {
+        usuario.value = storedUsername;
+      } else {
+        usuario.value = 'user-' + Math.round(Math.random() * 10000);
+        // Guarda el nombre de usuario generado en el localStorage
+        localStorage.setItem('username', usuario.value);
+      }
+
+      form.addEventListener('submit', (evt) => {
+        evt.preventDefault();
+        if (input.value === '') {
+          alert('Please enter a message');
+          return;
+        } 
+
+        // Enviar el mensaje al servidor
+        socket.emit('chat message', {
+          txt: input.value,
+          name: usuario.value
+        });
+
+        // Limpiar el input
+        input.value = '';
+      });
+
+      socket.on('chat message', (data) => {
+        // Añadir el mensaje recibido al registro de mensajes
+        const message = document.createElement('div');
+        message.className = data.name === usuario.value ? 'message sent' : 'message received';
+        message.textContent = data.name + ': ' + data.txt;
+        log.appendChild(message);
+        log.scrollTop = log.scrollHeight;
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="chat">
+    <form id="form">
+      <div>
+        <div class="messages"></div>
+
+        <input type="text" autocomplete="off" id="input" placeholder="Message" />
+      </div>
+    </form>
+  </div>
+  <div><input id="usuario" class="display-none" /></div>
+
+<a-scene cursor="rayOrigin: mouse">
+  <a-assets>
+  <video id="video" src="../multimedia-1-home-factoriaf5-web_UJHvoRbY.mp4" loop crossorigin="anonymous" style="display: none"></video>
+  <video id="video1" src="./videos/video1.mp4" loop crossorigin="anonymous" style="display: none"></video>
+  <video id="video2" src="./videos/video2.mp4" loop crossorigin="anonymous" style="display: none"></video>
+  <audio id="music" src="./audio/music.mp3" preload="auto"></audio>
+  <img id="floor" src="textures/floor-texture.jpg">
+  <img id="metalic" src="textures/metalic-texture.jpg">
+  </a-assets>
+
+  <a-entity sound="#music; loop:true;"></a-entity>
+  <a-sky src="./textures/sky.png" animation="property: rotation;from : 0 0 0; to: 0 -360 0; loop: true;easing: linear; dur: 250000"></a-sky> 
+  <a-entity id="logo-factoria" gltf-model="./3DModels/logo-factoria1.gltf" position="0 5 0" scale="10 10 10" animation="property: rotation;from : 0 0 0; to: 0 360 0; loop: true;easing: linear; dur: 25000" onclick=""></a-entity>
+  <a-mixin id="arc" geometry="primitive: torus; arc: 180; radius: 3.5; radiusTubular : 0.05" material="color: white"></a-mixin>
+
+ <!-- large screen -->
+ <a-entity id="large-screen" position="9.8 3 0" rotation="0 -90 0">
+ <a-plane position="0 0 0.01" height="4.5" width="8">
+ <a-video src="#video" width="8" height="4.5"></a-video>
+ </a-plane>     
+ <a-plane color="black" position="0 0 0" height="4.9" width="8.4" rotation="0 0 0"  ></a-plane>
+ </a-entity>
+
+ <!-- Small screen --> 
+  <a-plane material="color:black;" position="-9.88 2 4" height="1.7" width="2.2" rotation="0 90 0">  </a-plane>
+  <a-video src="#video1" width="2" height="1.5" position="-9.87 2 4" rotation="0 90 0"></a-video>
+  <a-plane material="color:black;" position="-9.88 2 -4" height="1.7" width="2.2" rotation="0 90 0">  </a-plane>
+  <a-video src="#video2" width="2" height="1.5" position="-9.87 2 -4" rotation="0 90 0"></a-video>
+
+ <!-- Floor -->
+<a-entity id="groundfloor">
+  <a-entity gltf-model="./3DModels/navmesh.gltf" position="0 -0.1 0" scale="1 1 0.6" visible="false" nav-mesh></a-entity> 
+  <a-plane id="floor" material="src: ./textures/floortexture.jpg; repeat: 4 3" height="15.4" width="20.4" rotation="-90 0 0" shadow="receive :true"></a-plane>
+</a-entity>
+ 
+  <!-- logo -->
+ <a-entity id="doorlogo" position="-9.9 4.3 0" >
+ <a-plane material="src: ./textures/logo-factoria-sf.png;" height="1" width="3" rotation="0 90 0" opacity=0.9 fit-texture></a-plane>
+ </a-entity>
+  
+ <!-- The Door -->
+ <a-entity id="door" position="-9.9 1.25 0">
+ <a-box class="door" position="0 0 0.77"  src="./textures/wood2.jpg" scale="0.1 4 1.475" ></a-box> 
+ <a-box class="door" position="0 0 -0.77"  src="./textures/wood2.jpg" scale="0.1 4 1.475" ></a-box>  
+ <a-box class="door" position="0 0.40 -1.55"  color="black" scale="0.15 3.3 0.2" ></a-box>  
+ <a-box class="door" position="0 0.40 1.55"  color="black" scale="0.15 3.3 0.2" ></a-box>  
+ <a-box class="door" position="0 2 0"  color="black" scale="0.15 0.2 3.3" ></a-box> 
+ <a-plane material="color:black;" height="3.8" width="0.2" rotation="0 90 0" ></a-plane>
+ </a-entity>   
+   
+  <!-- the camera -->
+  <a-entity id="rig" position="-6.8 0 0" rotation="0 -90 0" movement-controls="constrainToNavMesh: true" >
+    <a-entity camera id="thecamera" look-controls position="0 1.6 0" ></a-entity></a-entity> 
+
+  <a-entity id="Panel1" position="-7 1.5 -5">
+    
+
+    <a-entity id="3dcylinderdescription" position="0 3.2 -2.44">
+        <a-box src="#floor" height="0.7" width="3" depth="0.1" position="0 0 0"></a-box>
+        <a-box src="#metalic" height="0.5" width="2.8" depth="0.05" position="0 0 0.05"></a-box>
+        <a-entity text-animation="text: Ofertas por localización;"
+       position="2 0 0.1"
+></a-entity>
+</a-entity>
+    
+    <a-plane material="src: ./textures/friso2.png;" position="0 0.7 -2.44" scale="5.2 3.9 1.5"></a-plane>
+    <a-plane material="src: ./textures/pantalla.jpg;" height="2.8" width="4.2" position="0 0.7 -2.43" rotation="0 0 0" ></a-plane>
+    <a-image id="button1" class="toggle-button1" src="./textures/on.png" position="0 -0.95 -2.21" width="0.3" height="0.3"></a-image>
+    <a-circle class="anchor collidable" position="0 -1.45 -1.5" radius="0.3" color="grey" opacity="0.6" rotation="-90 0 0">
+    <a-entity
+      text="width: 3; font: ../Roboto-Regular-msdf.json; color: #ff4700; value: Ofertas por \n localización; align: center" 
+      background="color: #ffffff" 
+      rotation="90 0 0"
+      animation="property: position; from: 0 -0.1 0.15; to: 0 -0.05 0.2; dir: alternate; loop: true; easing: easeInOutSine; dur: 1000">
+    </a-entity>
+    <a-circle radius="0.4" position="0 0 -0.02" color="white" opacity="0.4"></a-circle>
+  </a-circle>
+  </a-entity>
+ 
+  <a-entity id="Panel2" position="0 1.5 -5">
+ <a-entity id="3dcylinderdescription" position="0 3.2 -2.44">
+        <a-box src="#floor" height="0.7" width="3" depth="0.1" position="0 0 0"></a-box>
+        <a-box src="#metalic" height="0.5" width="2.8" depth="0.05" position="0 0 0.05"></a-box>
+        <a-entity text-animation="text: Ofertas por tecnologías;"
+       position="2 0 0.1"
+></a-entity>
+</a-entity>
+    <a-plane material="src: ./textures/friso2.png;" position="0 0.7 -2.44" scale="5.2 3.9 1.5"></a-plane>
+    <a-plane material="src: ./textures/pantalla.jpg;" height="2.8" width="4.2" position="0 0.7 -2.43" rotation="0 0 0" ></a-plane>
+    <a-image id="button2" class="toggle-button2" src="./textures/on.png" position="0 -0.95 -2.21" width="0.3" height="0.3"></a-image>
+    <a-circle class="anchor collidable" position="0 -1.45 -1.5" radius="0.3" color="grey" opacity="0.6" rotation="-90 0 0">
+    <a-entity text="width: 3; font: ../Roboto-Regular-msdf.json; color: #ff4700; value: Ofertas por \n tecnologías; align: center" background="color: #ffffff" rotation="90 0 0"
+      animation="property: position; from: 0 -0.1 0.15; to: 0 -0.05 0.2; dir: alternate; loop: true; easing: easeInOutSine; dur: 1000"></a-entity>
+    <a-circle radius="0.4" position="0 0 -0.02" color="white" opacity="0.4" rotation="0 0 0">           
+    </a-circle></a-circle></a-entity>
+
+  <a-entity id="Panel3" position="7 1.5 -5">
+ <a-entity id="3dcylinderdescription" position="0 3.2 -2.44">
+        <a-box src="#floor" height="0.7" width="3" depth="0.1" position="0 0 0"></a-box>
+        <a-box src="#metalic" height="0.5" width="2.8" depth="0.05" position="0 0 0.05"></a-box>
+        <a-entity text-animation="text: Ofertas junior por localización;"
+       position="2 0 0.1"
+></a-entity>
+</a-entity>
+    <a-plane material="src: ./textures/friso2.png;" position="0 0.7 -2.44" scale="5.2 3.9 1.5"></a-plane>
+    <a-plane material="src: ./textures/pantalla.jpg;" height="2.8" width="4.2" position="0 0.7 -2.43" rotation="0 0 0" ></a-plane>
+    <a-image id="button3" class="toggle-button3" src="./textures/on.png" position="0 -0.95 -2.21" width="0.3" height="0.3"></a-image>
+    <a-circle class="anchor collidable" position="0 -1.45 -1.5" radius="0.3" color="grey" opacity="0.6" rotation="-90 0 0">
+    <a-entity text="width: 3; font: ../Roboto-Regular-msdf.json; color: #ff4700; value: Ofertas \n junior por \n localización; align: center" background="color: #ffffff" rotation="90 0 0"
+      animation="property: position; from: 0 -0.1 0.19; to: 0 -0.05 0.2; dir: alternate; loop: true; easing: easeInOutSine; dur: 1000">
+></a-entity>
+    <a-circle radius="0.4" position="0 0 -0.02" color="white" opacity="0.4" rotation="0 0 0">           
+    </a-circle></a-circle></a-entity>
+
+  <a-entity id="Panel4" position="7 1.5 5" rotation="0 180 0">
+ <a-entity id="3dcylinderdescription" position="0 3.2 -2.44">
+        <a-box src="#floor" height="0.7" width="3" depth="0.1" position="0 0 0"></a-box>
+        <a-box src="#metalic" height="0.5" width="2.8" depth="0.05" position="0 0 0.05"></a-box>
+        <a-entity text-animation="text: Ofertas en ingles por localización;"
+       position="2 0 0.1"
+></a-entity>
+</a-entity>
+         <a-plane material="src: ./textures/friso2.png;" position="0 0.7 -2.44" scale="5.2 3.9 1.5"></a-plane>
+    <a-plane material="src: ./textures/pantalla.jpg;" height="2.8" width="4.2" position="0 0.7 -2.43" rotation="0 0 0" ></a-plane>
+    <a-image id="button4" class="toggle-button4" src="./textures/on.png" position="0 -0.95 -2.21" width="0.3" height="0.3"></a-image>
+    <a-circle class="anchor collidable" position="0 -1.45 -1.5" radius="0.3" color="grey" opacity="0.6" rotation="-90 0 0">
+    <a-entity text="width: 3; font: ../Roboto-Regular-msdf.json; color: #ff4700; value: Ofertas en\n ingles por \n localización; align: center" background="color: #ffffff" rotation="90 0 0"
+      animation="property: position; from: 0 -0.1 0.19; to: 0 -0.05 0.2; dir: alternate; loop: true; easing: easeInOutSine; dur: 1000">
+></a-entity>
+    <a-circle radius="0.4" position="0 0 -0.02" color="white" opacity="0.4" rotation="0 0 0">           
+    </a-circle></a-circle></a-entity>
+
+  <a-entity id="Panel5" position="0 1.5 5" rotation="0 180 0">
+ <a-entity id="3dcylinderdescription" position="0 3.2 -2.44">
+        <a-box src="#floor" height="0.7" width="3" depth="0.1" position="0 0 0"></a-box>
+        <a-box src="#metalic" height="0.5" width="2.8" depth="0.05" position="0 0 0.05"></a-box>
+        <a-entity text-animation="text: Ofertas por empresas;"
+       position="2 0 0.1"
+></a-entity>
+</a-entity>
+    <a-plane material="src: ./textures/friso2.png;" position="0 0.7 -2.44" scale="5.2 3.9 1.5"></a-plane>
+    <a-plane material="src: ./textures/pantalla.jpg;" height="2.8" width="4.2" position="0 0.7 -2.43" rotation="0 0 0" ></a-plane>
+    <a-image id="button5" class="toggle-button5" src="./textures/on.png" position="0 -0.95 -2.21" width="0.3" height="0.3"></a-image>
+    <a-circle class="anchor collidable" position="0 -1.45 -1.5" radius="0.3" color="grey" opacity="0.6" rotation="-90 0 0">
+    <a-entity text="width: 3; font: ../Roboto-Regular-msdf.json; color: #ff4700; value: Ofertas por \n empresas; align: center" background="color: #ffffff" rotation="90 0 0"
+      animation="property: position; from: 0 -0.1 0.15; to: 0 -0.05 0.2; dir: alternate; loop: true; easing: easeInOutSine; dur: 1000">
+></a-entity>
+    <a-circle radius="0.4" position="0 0 -0.02" color="white" opacity="0.4" rotation="0 0 0">           
+    </a-circle></a-circle></a-entity>
+
+  <a-entity id="Panel6" position="-7 1.5 5" rotation="0 180 0">
+ <a-entity id="3dcylinderdescription" position="0 3.2 -2.44">
+        <a-box src="#floor" height="0.7" width="3" depth="0.1" position="0 0 0"></a-box>
+        <a-box src="#metalic" height="0.5" width="2.8" depth="0.05" position="0 0 0.05"></a-box>
+        <a-entity text-animation="text: Tecnologías realizadas por estudiantes;"
+       position="2 0 0.1"
+></a-entity>
+</a-entity>
+          <a-plane material="src: ./textures/friso2.png;" position="0 0.7 -2.44" scale="5.2 3.9 1.5"></a-plane>
+    <a-plane material="src: ./textures/pantalla.jpg;" height="2.8" width="4.2" position="0 0.7 -2.43" rotation="0 0 0" ></a-plane>
+    <a-image id="button6" class="toggle-button6" src="./textures/on.png" position="0 -0.95 -2.21" width="0.3" height="0.3"></a-image>
+    <a-circle class="anchor collidable" position="0 -1.45 -1.5" radius="0.3" color="grey" opacity="0.6" rotation="-90 0 0">
+    <a-entity text="width: 3; font: ../Roboto-Regular-msdf.json; color: #ff4700; value: Tecnologías \n realizadas por \n estudiantes; align: center" background="color: #ffffff" rotation="90 0 0"
+      animation="property: position; from: 0 -0.1 0.19; to: 0 -0.05 0.2; dir: alternate; loop: true; easing: easeInOutSine; dur: 1000">
+></a-entity>
+    <a-circle radius="0.4" position="0 0 -0.02" color="white" opacity="0.4" rotation="0 0 0">           
+    </a-circle></a-circle></a-entity>
+
+<!-- Building Structure -->
+  <a-box class="wall" position="0 2.99 -7.5"  scale="20.2 5.8 0.1"  material="src : ./textures/walltexture.jpg; repeat : 10 3; offset: 0 0.5"></a-box>
+  <a-box class="wall" position="0 2.99 7.5"  scale="20.2 5.8 0.1" material="src : ./textures/walltexture.jpg; repeat : 10 3; offset: -0.25 0.5"></a-box>
+  <a-box class="wall" position="-10 2.99 0"  scale="0.1 5.8 15.2"   material="src : ./textures/walltexture.jpg; repeat : 6 3; offset: 0 0.5"></a-box>
+  <a-box class="wall" position="10 2.99 0"  scale="0.1 5.8 15.2"  material="src: ./textures/walltexture.jpg; repeat: 6 3"></a-box>
+
+  <a-box class="lowbar" position="0 0 -7.6"  color="black" scale="20.2 .2 0.1"   ></a-box>
+  <a-box class="lowbar" position="0 0 7.6"  color="black" scale="20.2 .2 0.1"   ></a-box>
+  <a-box class="lowbar" position="-10.1 0 0"  color="black" scale="0.1 .2 15.2"   ></a-box>
+  <a-box class="lowbar" position="10.1 0 0"  color="black" scale="0.1 .2 15.2"   ></a-box>
+
+  <a-box class="highbar" position="0 6 -7.6"  color="white" scale="20 .2 0.1" material="emissiveIntensity: 1; emissive:#ffffff"  ></a-box>
+  <a-box class="highbar" position="0 6 7.6"  color="white" scale="20 .2 0.1" material="emissiveIntensity: 1; emissive:#ffffff"  ></a-box>
+  <a-box class="highbar" position="-10.1 6 0"  color="white" scale="0.1 .2 15"  material="emissiveIntensity: 1; emissive:#ffffff" ></a-box>
+  <a-box class="highbar" position="10.1 6 0"  color="white" scale="0.1 .2 15" material="emissiveIntensity: 1; emissive:#ffffff"  ></a-box>
+
+  <!-- Scene Lighting  -->
+  <a-entity light="color: #ffffff; type: ambient; intensity: 0.65 "></a-entity>
+ 
+  <!-- Wall Lights -->
+  <a-entity light="color: #e7dbc1; intensity: 0.3; type: point; distance: 6" position="-3 2.5 -6.5" ></a-entity>
+  <a-box scale="0.5 0.5 0.5" position="-3.5 4.5 -7.5" material="emissiveIntensity: 2; emissive:#ffffff"></a-box>
+  <a-box scale="0.55 0.2 0.55" position="-3.5 4.5 -7.5" material="color: black"></a-box>
+
+  <a-entity light="color: #e7dbc1; intensity: 0.3; type: point; distance: 6" position="-3 2.5 6.5" ></a-entity> 
+  <a-box scale="0.5 0.5 0.5" position="-3.5 4.5 7.5" material="emissiveIntensity: 2; emissive:#ffffff"></a-box>
+  <a-box scale="0.55 0.2 0.55" position="-3.5 4.5 7.5" material="color: black"></a-box>
+
+  <a-entity light="color: #e7dbc1; intensity: 0.3; type: point; distance: 6" position="3 2.5 -6.5" ></a-entity>
+  <a-box scale="0.5 0.5 0.5" position="3.5 4.5 -7.5" material="emissiveIntensity: 2; emissive:#ffffff"></a-box>
+  <a-box scale="0.55 0.2 0.55" position="3.5 4.5 -7.5" material="color: black"></a-box>
+
+  <a-entity light="color: #e7dbc1; intensity: 0.3; type: point; distance: 6" position="3 2.5 6.5" ></a-entity> 
+  <a-box scale="0.5 0.5 0.5" position="3.5 4.5 7.5" material="emissiveIntensity: 2; emissive:#ffffff"></a-box>
+  <a-box scale="0.55 0.2 0.55" position="3.5 4.5 7.5" material="color: black"></a-box>
+   
+  <!-- Roof  -->
+  <a-entity mixin="arc" position="-3 7 0" rotation="0 90 0"></a-entity>
+  <a-entity mixin="arc" position="-7 7 0" rotation="0 90 0"></a-entity>
+    <a-entity mixin="arc" position="0 7 0" rotation="0 90 0"></a-entity>
+  <a-entity mixin="arc" position="7 7 0" rotation="0 90 0"></a-entity>
+  <a-entity mixin="arc" position="3 7 0" rotation="0 90 0"></a-entity>
+
+<!-- Ceiling -->
+  <a-entity id="ceiling" position="0 6.5 0">
+  <a-box class="roof" position="8 0 0"  depth="1" height="4.5" width="15"  shadow="receive :true" material="color: white;" rotation="90 -90 0"></a-box>
+  <a-box class="roof" position="-8 0 0"  depth="1" height="4.5" width="15"  shadow="receive :true" material="color: white;" rotation="90 90 0"></a-box>
+  <a-box class="roof" position="0 0 -5.25"  depth="1" height="4.5" width="12"  shadow="receive :true" material="color: white;" rotation="90 0 0"></a-box>
+  <a-box class="roof" position="0 0 5.25"  depth="1" height="4.5" width="12"  shadow="receive :true" material="color: white;" rotation="90 180 0"></a-box>
+
+<!-- Ceiling Lights -->     
+  <a-entity id="ceiling-lights" position="0 -0.45 0">
+  <a-box scale="0.5 0.2 0.5" position="8 0 3" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="8 0 1" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="8 0 -1" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="8 0 -3" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>  
+  <a-box scale="0.5 0.2 0.5" position="5 0 5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="3 0 5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="1 0 5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-1 0 5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-3 0 5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-5 0 5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="5 0 -5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="3 0 -5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="1 0 -5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-1 0 -5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-3 0 -5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-5 0 -5" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-8 0 3" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-8 0 1" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-8 0 -1" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  <a-box scale="0.5 0.2 0.5" position="-8 0 -3" material="emissiveIntensity: 1; emissive:#ffffff"></a-box>
+  </a-entity>   
+ </a-entity>
+</a-scene>
+</body>
+</html>

@@ -1,0 +1,12 @@
+version: '3'
+services:
+  spiderfront:
+    image: jreugercios/spiderfront:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4173:4173"
+    environment:
+      - NODE_ENV=production
+    command: npm run preview

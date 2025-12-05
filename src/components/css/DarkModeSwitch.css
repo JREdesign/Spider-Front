@@ -1,0 +1,121 @@
+/* src/components/DarkModeSwitch.css */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #183153; /* Fondo azul claro para el estado claro */
+  transition: .4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  left: 2px;
+  bottom: 2px;
+  z-index: 2;
+  background-color: #e8e8e8; /* Blanco para el botón */
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #73C0FC; /* Fondo azul oscuro para el estado oscuro */
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #183153;
+}
+
+.sun svg {
+  position: absolute;
+  top: 2px;
+  left: 30px;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  fill: #ffd43b; /* Amarillo para el sol */
+  display: none;
+}
+
+.moon svg {
+  fill: #73C0FC; /* Azul claro para la luna */
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+
+.input:checked ~ .slider .moon svg {
+  display: block;
+}
+
+.input:checked ~ .slider .sun svg {
+  display: none;
+}
+
+.input:not(:checked) ~ .slider .sun svg {
+  display: block;
+}
+
+.input:not(:checked) ~ .slider .moon svg {
+  display: none;
+}
+
+.switch:hover .sun svg {
+  animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.switch:hover .moon svg {
+  animation: tilt 5s linear infinite;
+}
+
+@keyframes tilt {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

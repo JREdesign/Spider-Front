@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f8f9fa;
+  font-family: 'Poppins', sans-serif;
+  color: black;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 50px;
+  position: fixed;
+  left: 0;
+  top: 30px;
+  width: 100%;
+  height: 96px;
+  background-color: transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.navbar-logo img {
+  height: 50px;
+}
+
+.navbar-links {
+  display: flex;
+  font-size: 16px;
+}
+
+.navbar-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  display: inline-block;
+  color: #020100;
+  font-family: Poppins;
+  font-weigth: bold;
+  
+}
+
+.navbar-links a:hover {
+  content: '';
+  botton: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  color: #ff4700;
+  background: #ff4700;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.navbar-login {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-login button {
+  padding: 8px 16px;
+  background-color: #ff4700;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: visible;
+}
+
+.navbar-login img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+  z-index: 1000;
+}
+
+/* Estilos para la animación de subrayado */
+.hover-underline-animation {
+  position: relative;
+  color: #000; /* Cambia el color según necesites */
+  text-decoration: none; /* Elimina el subrayado predeterminado */
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px; /* Espesor del subrayado */
+  bottom: 0;
+  left: 0;
+  background-color: #ff4700; /* Color del subrayado */
+  transform-origin: bottom center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+}
+button:hover {
+  background-color: '#ff944d';
+}
+
+
+.job-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+}
+
+
+.job-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Límite de líneas visibles */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.icons {
+  margin-top: auto; /* Empuja los iconos hacia abajo */
+}
+
+
+
+
+

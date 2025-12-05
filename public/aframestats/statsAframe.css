@@ -1,0 +1,41 @@
+body {
+    font-family: sans-serif;
+  }
+  .chat {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 200px;
+    z-index: 999;
+  }
+  #input {
+    width: 100%;
+    height: 30px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .messages {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    white-space: pre-wrap;
+  }
+  .display-none {
+    display: none;
+  }
+  .message {
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  .sent {
+    background-color: #ff4701;
+  }
+  .received {
+    background-color: white;
+  }

@@ -1,0 +1,31 @@
+export const locationArray = [
+    "Ubicación",
+    "Madrid",
+    "Barcelona",
+    "Asturias",
+    "Valencia",
+    "Remoto",
+  ];
+  
+  export const technologyArray = [
+    "React",
+    "Angular",
+    "Nextjs",
+    "Nodejs",
+    "Express",
+    "PHP",
+    "JAVA",
+    "SQL",
+    "MongoDB",
+    "Javascript",
+    "Jest",
+    "Typescript",
+    "Laravel",
+    "Symfony",
+    "Vue",
+    "HTML",
+    "CSS",
+    "Python",
+    "Shopify",
+    "Ruby",
+  ];

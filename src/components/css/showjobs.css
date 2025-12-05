@@ -1,0 +1,43 @@
+/* estilos.css */
+
+.truncated-text {
+    white-space: nowrap; /* No permite el salto de línea */
+    overflow: hidden; /* Oculta el texto desbordado */
+    text-overflow: ellipsis; /* Añade '...' al final del texto truncado */
+    max-width: 100%; /* Asegura que el ancho máximo sea el contenedor */
+    display: inline-block; /* Asegura que el comportamiento sea en línea */
+  }
+  
+  .full-text {
+    display: none; /* Oculta el texto completo inicialmente */
+  }
+  
+  .hover-container:hover .truncated-text {
+    display: none; /* Oculta el texto truncado en hover */
+  }
+  
+  .hover-container:hover .full-text {
+    display: inline; /* Muestra el texto completo en hover */
+  }
+  
+/* estilos.css */
+
+.truncated-text {
+    white-space: nowrap; /* No permite el salto de línea */
+    overflow: hidden; /* Oculta el texto desbordado */
+    text-overflow: ellipsis; /* Añade '...' al final del texto truncado */
+    max-width: 100%; /* Asegura que el ancho máximo sea el contenedor */
+    display: inline-block; /* Asegura que el comportamiento sea en línea */
+  }
+  
+  .full-text {
+    display: none; /* Oculta el texto completo inicialmente */
+  }
+  
+  .hover-container:hover .truncated-text {
+    display: none; /* Oculta el texto truncado en hover */
+  }
+  
+  .hover-container:hover .full-text {
+    display: inline; /* Muestra el texto completo en hover */
+  }
