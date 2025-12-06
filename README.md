@@ -2,13 +2,13 @@
 [![CircleCI](https://circleci.com/gh/impress/impress.js.svg?style=svg)](https://circleci.com/gh/impress/impress.js)
 
 <p align="center">
-  <img src="https://imgur.com/DfItGMa.jpg" width="300px" alt="Rastreador Logo"/>
+  <img src="https://imgur.com/UxXJ5ry.jpg" width="300px" alt="Rastreador Logo"/>
 </p>
 
 # 🕷️ El Rastreador: Proyecto final DWFS + TI
 
-
-Bienvenido al repositorio del proyecto final del Bootcamp Desarrollo Web Full Stack + Tecnologías Inmersivas.
+Bienvenido al repositorio del proyecto final del Bootcamp Desarrollo Web Full Stack + Tecnologías Inmersivas.<br>
+(Nota: La carpeta design con los originales del proyecto estan guardadas a parte)
 
 ## 🧭 Características Generales
 
